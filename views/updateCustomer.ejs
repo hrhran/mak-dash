@@ -1,0 +1,63 @@
+<div class="card">
+    <div class="card-header">
+        <h4 class="font-weight-bold">Update Subscriber</h4>
+    </div>
+    <div class="card-body">
+        <form action="/updateCustomer/<%= customer._id %>" method="post">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="timestamp">Timestamp</label>
+                        <input type="text" class="form-control" value="<%= customer.timestamp%>" name="timestamp" placeholder="" id="timestamp">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="email">Email</label>
+                        <input type="text" class="form-control" value="<%= customer.email%>" name="email" placeholder="" id="email">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="discord_id">Discord ID</label>
+                        <input type="text" class="form-control" value="<%= customer.discord_id%>" name="discord_id" placeholder="" id="discord_id">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="discord_name">Discord Name</label>
+                        <input type="text" class="form-control" value="<%= customer.discord_name%>"name="discord_name" placeholder="" id="discord_name">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="status">Status</label>
+                        <input type="text" class="form-control" value="<%= customer.status%>" name="status" placeholder="" id="status">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="twitter">Twitter Account</label>
+                        <input type="text" class="form-control" value="<%= customer.twitter%>" name="twitter" placeholder="" id="twitter">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="cust_id">Customer ID</label>
+                        <input type="text" class="form-control" value="<%= customer.cust_id%>" name="cust_id" placeholder="" id="cust_id">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="channel">Channel</label>
+                        <input type="text" class="form-control" value="<%= customer.channel%>" name="channel" placeholder="" id="channel">
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <button type="submit" class="btn btn-success">Update</button>
+                <a href="/" class="btn btn-light">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

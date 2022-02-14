@@ -1,0 +1,64 @@
+
+    <div class="card-header">
+        <div class="row">
+            <div class="col-4">
+                <h4 class="font-weight-bold">All Subscribers</h4>
+            </div>
+            <div class="col-6">
+                <form class="form-inline my-2 my-lg-0" action="/search" method="get">    
+                    <input class="form-control mr-sm-2" type="text" name="dsearch" placeholder="Search">    
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>    
+                  </form>    
+            </div>
+            <div class="col-2">
+                <a href="/addCustomer" class="btn btn-info float-right"><i class="fa fa-plus mr-1"></i>Add New</a>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+ 
+      
+    
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Timestamp</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Discord ID</th>
+                    <th scope="col">Discord Name</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Twitter</th>
+                    <th scope="col">Customer ID</th>
+                    <th scope="col">Channel</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(customers.length > 0) { %>
+                    <% for(let sub of customers) { %>
+                    <tr>
+                    
+                        <td><%= sub.timestamp %></td>
+                        <td><%= sub.email %></td>
+                        <td><%= (sub.discord_id === '')? '-': sub.discord_id %></td>
+                        <td><%= (sub.discord_name === '')? '-': sub.discord_name %></td>
+                        <td><%= sub.status %></td>
+                        <td><%= (sub.twitter === '')? '-': sub.twitter %></td>
+                        <td><%= (sub.cust_id === '')? '-': sub.cust_id %></td>
+                        <td><%= sub.channel %></td>
+                        <td>
+                            <a href="/updateCustomer/<%= sub._id %>" class="btn"><i class="fa fa-edit"></i></a>
+                            <a href="/deleteCustomer/<%= sub._id %>" class="btn"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    <% } %>
+                <% } else { %>
+                    <tr>
+                        <td>No data found</td>
+                    </tr>
+                <% } %>
+            </tbody>
+            </table>
+        </div>
+    
+
