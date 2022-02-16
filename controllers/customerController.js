@@ -1,114 +1,133 @@
-const {subscriber} = require('../models/customer');
+const { subscriber } = require("../models/customer");
+const path = require("path");
+const fs = require("fs");
+const helper = require("../helper");
+
+const loginView = (req, res, next) => {
+  res.sendFile(path.join(__dirname, "../views/login.html"));
+};
+
+const postLogin = (req, res, next) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  fs.readFile(path.join(__dirname, "../startup/admin.json"), (err, data) => {
+    if (err) throw err;
+    let admin = JSON.parse(data);
+    admin.forEach((e) => {
+      if (e.username === username && e.password === password) {
+        req.session.isLoggedIn = true;
+        res.redirect("/dashboard");
+      }
+    });
+  });
+};
+
+const postLogout = (req, res, next) => {
+  req.session = null;
+  res.redirect("/");
+};
 
 const getAllCustomers = async (req, res, next) => {
-    subscriber.find().sort({'timestamp': -1}).exec((err, users) => {
-        if(err) return console.log(err)
-        res.render('customerlist', {
-            customers: users
-        });
+  subscriber
+    .find()
+    .sort({ timestamp: -1 })
+    .exec((err, users) => {
+      if (err) return console.log(err);
+      res.render("customerlist", {
+        customers: users,
+        helper: helper,
       });
-    //const list = await subscriber.find().exec();
-
-}
-
-const searchCustomer = async (req, res, next) =>{
-    try {  
-        subscriber.find({$or:[{email:{'$regex':req.query.dsearch}},{discord_id:{'$regex':req.query.dsearch}},{discord_name:{'$regex':req.query.dsearch}},{discord_twitter:{'$regex':req.query.dsearch}},{cust_id:{'$regex':req.query.dsearch}}]}).sort({'timestamp': -1}).exec((err, users) =>{  
-        if(err){  
-        console.log(err);  
-        }else{  
-        res.render('customerlist',{
-            customers:users
-        });  
-        }  
-        })  
-        } catch (error) {  
-        console.log(error);  
-        }  
-}
-
+    });
+};
 
 const getAddCustomerView = (req, res, next) => {
-    res.render('addCustomer');
-}
+  res.render("addCustomer");
+};
 
 const addCustomer = async (req, res, next) => {
-    const data = req.body;
-    let user = await new subscriber({
-        timestamp: data.timestamp,
-        email: data.email,
-        discord_id: data.discord_id,
-        discord_name: data.discord_name,
-        status: data.status,
-        twitter: data.twitter,
-        cust_id:data.cust_id,
-        channel:data.channel,
-    });
-    user = await user.save();
-    res.redirect('/');
-}
+  const data = req.body;
+  let user = await new subscriber({
+    timestamp: data.timestamp,
+    email: data.email,
+    discord_id: data.discord_id,
+    discord_name: data.discord_name,
+    status: data.status,
+    twitter: data.twitter,
+    cust_id: data.cust_id,
+    channel: data.channel,
+  });
+  user = await user.save();
+  res.redirect("/dashboard");
+};
 
 const getUpdateCustomerView = async (req, res, next) => {
-    try {
-        const id = req.params.id;
-        const onecustomer = await subscriber.findById(id).exec();
-        res.render('updateCustomer', {
-            customer: onecustomer
-        });
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
-
-const updateCustomer = async(req, res, next) => {
+  try {
     const id = req.params.id;
-    const data = req.body;
-    let user = await subscriber.findByIdAndUpdate(id, {
-        timestamp: data.timestamp,
-        email: data.email,
-        discord_id: data.discord_id,
-        discord_name: data.discord_name,
-        status: data.status,
-        twitter: data.twitter,
-        cust_id:data.cust_id,
-        channel:data.channel,
-    }, {new: true});
-    if(!user) return res.status(404).send('Subscriber with the given id not found');
+    const onecustomer = await subscriber.findById(id).exec();
+    res.render("updateCustomer", {
+      customer: onecustomer,
+    });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
 
-    res.redirect('/');
-}
+const updateCustomer = async (req, res, next) => {
+  const id = req.params.id;
+  const data = req.body;
+  let user = await subscriber.findByIdAndUpdate(
+    id,
+    {
+      timestamp: data.timestamp,
+      email: data.email,
+      discord_id: data.discord_id,
+      discord_name: data.discord_name,
+      status: data.status,
+      twitter: data.twitter,
+      cust_id: data.cust_id,
+      channel: data.channel,
+    },
+    { new: true }
+  );
+  if (!user)
+    return res.status(404).send("Subscriber with the given id not found");
+
+  res.redirect("/dashboard");
+};
 
 const getDeleteCustomerView = async (req, res, next) => {
-    try {
-        const id = req.params.id;
-        const onecustomer = await subscriber.findById(id).exec();
-        res.render('deleteCustomer', {
-            customer: onecustomer
-        });
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
+  try {
+    const id = req.params.id;
+    const onecustomer = await subscriber.findById(id).exec();
+    res.render("deleteCustomer", {
+      customer: onecustomer,
+    });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
 
 const deleteCustomer = async (req, res, next) => {
-    try {
-        const id = req.params.id;
-        const customer = await subscriber.findByIdAndRemove(id);
-        if(!customer) return res.status(404).send('Subsciber with the given id not found');
-        res.redirect('/');        
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
-
+  try {
+    const id = req.params.id;
+    const customer = await subscriber.findByIdAndRemove(id);
+    if (!customer)
+      return res.status(404).send("Subsciber with the given id not found");
+    res.redirect("/dashboard");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
 
 module.exports = {
-    getAllCustomers,
-    searchCustomer,
-    getAddCustomerView,
-    addCustomer,
-    getUpdateCustomerView,
-    updateCustomer,
-    getDeleteCustomerView,
-    deleteCustomer
-}
+  loginView,
+  postLogin,
+  getAllCustomers,
+  postLogout,
+  getAddCustomerView,
+  addCustomer,
+  getUpdateCustomerView,
+  updateCustomer,
+  getDeleteCustomerView,
+  deleteCustomer,
+};

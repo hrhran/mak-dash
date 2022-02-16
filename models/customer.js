@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-
-const myObject = mongoose.Schema({
+const myObject = mongoose.Schema(
+  {
     timestamp: String,
     email: String,
     discord_id: String,
@@ -10,11 +10,10 @@ const myObject = mongoose.Schema({
     twitter: String,
     cust_id: String,
     channel: String,
-  },{ versionKey: false });
+  },
+  { versionKey: false }
+);
 
-
-const subscriber = mongoose.model('subscriber', myObject);
-
-
+const subscriber = mongoose.model("subscriber", myObject);
 
 module.exports.subscriber = subscriber;

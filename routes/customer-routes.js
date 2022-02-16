@@ -1,21 +1,20 @@
-const express = require('express');
-const {getAllCustomers, getAddCustomerView, addCustomer,
-        getUpdateCustomerView, updateCustomer, getDeleteCustomerView, deleteCustomer,searchCustomer} = require('../controllers/customerController');
-
+const express = require("express");
+const auth = require("../middleware/auth");
+const controller = require("../controllers/customerController");
 
 const router = express.Router();
 
-router.get('/', getAllCustomers);
-router.get('/search',searchCustomer);
-router.get('/addCustomer', getAddCustomerView);
-router.post('/addCustomer', addCustomer);
-router.get('/updateCustomer/:id', getUpdateCustomerView);
-router.post('/updateCustomer/:id', updateCustomer);
-router.get('/deleteCustomer/:id', getDeleteCustomerView);
-router.post('/deleteCustomer/:id', deleteCustomer);
-
-
+router.get("/", controller.loginView);
+router.post("/postLogin", controller.postLogin);
+router.get("/dashboard", auth, controller.getAllCustomers);
+router.post("/postLogout", controller.postLogout);
+router.get("/addCustomer", auth, controller.getAddCustomerView);
+router.post("/addCustomer", controller.addCustomer);
+router.get("/updateCustomer/:id", auth, controller.getUpdateCustomerView);
+router.post("/updateCustomer/:id", controller.updateCustomer);
+router.get("/deleteCustomer/:id", auth, controller.getDeleteCustomerView);
+router.post("/deleteCustomer/:id", controller.deleteCustomer);
 
 module.exports = {
-    routes: router
-}
+  routes: router,
+};

@@ -2,15 +2,12 @@
     <div class="card-header">
         <div class="row">
             <div class="col-4">
-                <h4 class="font-weight-bold">All Subscribers</h4>
+                <h4 class="font-weight-bold">Subscriber Dashboard</h4>
             </div>
-            <div class="col-6">
-                <form class="form-inline my-2 my-lg-0" action="/search" method="get">    
-                    <input class="form-control mr-sm-2" type="text" name="dsearch" placeholder="Search">    
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>    
-                  </form>    
+            <div class="col-4">
+                <input class="form-control" id="myInput" type="text" placeholder="Search..">
             </div>
-            <div class="col-2">
+            <div class="col-4">
                 <a href="/addCustomer" class="btn btn-info float-right"><i class="fa fa-plus mr-1"></i>Add New</a>
             </div>
         </div>
@@ -33,12 +30,12 @@
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="myTable">
                 <% if(customers.length > 0) { %>
                     <% for(let sub of customers) { %>
                     <tr>
                     
-                        <td><%= sub.timestamp %></td>
+                        <td><%= helper.convertTime(sub.timestamp) %></td>
                         <td><%= sub.email %></td>
                         <td><%= (sub.discord_id === '')? '-': sub.discord_id %></td>
                         <td><%= (sub.discord_name === '')? '-': sub.discord_name %></td>
@@ -50,7 +47,7 @@
                             <a href="/updateCustomer/<%= sub._id %>" class="btn"><i class="fa fa-edit"></i></a>
                             <a href="/deleteCustomer/<%= sub._id %>" class="btn"><i class="fa fa-trash"></i></a>
                         </td>
-                    </tr>
+                    </tr
                     <% } %>
                 <% } else { %>
                     <tr>
@@ -60,5 +57,18 @@
             </tbody>
             </table>
         </div>
+
+        
+        <script>
+
+            $(document).ready(function(){
+              $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+              });
+            });
+            </script>
     
 
