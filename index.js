@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const config = require("./startup/config");
 const err = require("./middleware/errors");
 const customerRoutes = require("./routes/customer-routes");
+const levelRoutes = require("./routes/level-routes");
 const app = express();
 const session = require("cookie-session");
 
@@ -28,6 +29,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(customerRoutes.routes);
+app.use(levelRoutes.routes);
 app.use(err);
 
 app.listen(config.port, () =>

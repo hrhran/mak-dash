@@ -1,0 +1,52 @@
+<div class="card-body">
+    <form class="form-horizontal" action="/updateLevel/<%= lvls._id %>" method="post">
+        <fieldset>
+        
+        <!-- Form Name -->
+        <center><legend>Update Levels</legend></center>
+        
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="symbol">Symbol</label>  
+          <div class="col-md-4">
+          <input id="symbol" name="symbol" type="text" value="<%= lvls.symbol%>" placeholder="Enter Symbol" class="form-control input-md" required="">
+            
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="date">Date</label>  
+            <div class="col-md-4">
+            <input id="date" name="date" type="date" value="<%= lvls.date%>" class="form-control input-md" required="">
+              
+            </div>
+          </div>
+        
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="levels">Levels</label>  
+          <div class="col-md-4">
+          <input id="levels" name="levels" type="text" value="<%= lvls.levels%>" placeholder="Enter Levels (comma separated)" class="form-control input-md" required="">
+            
+          </div>
+        </div>
+        
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="comment">Comment</label>  
+          <div class="col-md-4">
+          <input id="comment" name="comment" type="text" value="<%= lvls.comment%>" placeholder="Optional Comment" class="form-control input-md">
+            
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="submit"></label>
+            <div class="col-md-4">
+              <button id="submit" name="submit" class="btn btn-primary">Update Entry</button>
+            </div>
+          </div>
+        
+        </fieldset>
+        </form>
+</div>

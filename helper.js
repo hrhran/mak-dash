@@ -6,6 +6,18 @@ const convertTime = (time) => {
     .replace("GMT", ""));
 };
 
+
+
+const formatDate = (data) =>{
+  var date = new Date(data);  
+  var d = date.getDate();
+  var m = date.getMonth()+1;
+  var y = date.getFullYear()
+  return(d+ '-' +m+ '-' +y) 
+}
+
 module.exports = {
   convertTime,
+  formatDate,
 };
+

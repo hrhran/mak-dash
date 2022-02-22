@@ -1,0 +1,90 @@
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-body">
+        <form class="form-horizontal" action="/addLevel" method="post">
+            <fieldset>
+            
+            <!-- Form Name -->
+            <center><legend>Add Levels</legend></center>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="symbol">Symbol</label>  
+              <div class="col-md-4">
+              <input id="symbol" name="symbol" type="text" placeholder="Enter Symbol" class="form-control input-md" required="">
+                
+              </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="date">Date</label>  
+                <div class="col-md-4">
+                <input id="date" name="date" type="date" class="form-control input-md" required="">
+                  
+                </div>
+              </div>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="levels">Levels</label>  
+              <div class="col-md-4">
+              <input id="levels" name="levels" type="text" placeholder="Enter Levels (comma separated)" class="form-control input-md" required="">
+                
+              </div>
+            </div>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="comment">Comment</label>  
+              <div class="col-md-4">
+              <input id="comment" name="comment" type="text" placeholder="Optional Comment" class="form-control input-md">
+                
+              </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="submit"></label>
+                <div class="col-md-4">
+                  <button id="submit" name="submit" class="btn btn-success">Add Entry</button>
+                </div>
+              </div>
+            
+            </fieldset>
+            </form>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">Date</th>
+                <th scope="col">Levels</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            <% if(lvls.length > 0) { %>
+                <% for(let sub of lvls) { %>
+                <tr>   
+                    <td><%= sub.symbol %></td>
+                    <td><%= helper.formatDate(sub.date) %></td>
+                    <td><%= sub.levels %></td>
+                    <td><%= (sub.comment === '')? '-': sub.comment %></td>
+                    <td>
+                        <a href="/updateLevel/<%= sub._id %>" class="btn"><i class="fa fa-edit"></i></a>
+                        <form action="/deleteLevel/<%= sub._id %>" style="display: inline;" method="POST"><button type="submit" class="btn"><i class="fa fa-trash"></i></button></form>
+                    </td>
+                </tr
+                <% } %>
+            <% } else { %>
+                <tr>
+                    <td>No data found</td>
+                </tr>
+            <% } %>
+        </tbody>
+        </table>
+    </div>
+
+
+</div>
