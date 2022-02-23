@@ -26,7 +26,7 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="levels">Levels</label>  
           <div class="col-md-4">
-          <input id="levels" name="levels" type="text" value="<%= lvls.levels%>" placeholder="Enter Levels (comma separated)" class="form-control input-md" required="">
+          <textarea id="levels" name="levels" type="text" placeholder="Enter Levels (comma separated)" class="form-control input-md" rows="3" required=""><%= lvls.levels%></textarea>
             
           </div>
         </div>
@@ -35,7 +35,7 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="comment">Comment</label>  
           <div class="col-md-4">
-          <input id="comment" name="comment" type="text" value="<%= lvls.comment%>" placeholder="Optional Comment" class="form-control input-md">
+          <textarea id="comment" name="comment" type="text" placeholder="Optional Comment" class="form-control input-md" rows="3"><%= lvls.comment%></textarea>
             
           </div>
         </div>

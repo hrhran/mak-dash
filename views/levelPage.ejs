@@ -28,7 +28,7 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="levels">Levels</label>  
               <div class="col-md-4">
-              <input id="levels" name="levels" type="text" placeholder="Enter Levels (comma separated)" class="form-control input-md" required="">
+              <textarea id="levels" name="levels" type="text" placeholder="Enter Levels (comma separated)" class="form-control input-md" rows="3" required=""></textarea>
                 
               </div>
             </div>
@@ -37,7 +37,7 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="comment">Comment</label>  
               <div class="col-md-4">
-              <input id="comment" name="comment" type="text" placeholder="Optional Comment" class="form-control input-md">
+              <textarea id="comment" name="comment" type="text" placeholder="Optional Comment" class="form-control input-md" rows="3"></textarea>
                 
               </div>
             </div>
@@ -52,39 +52,38 @@
             </fieldset>
             </form>
   </div>
-  <div class="table-responsive">
-    <table class="table table-hover">
-        <thead class="table-dark">
-            <tr>
-                <th scope="col">Symbol</th>
-                <th scope="col">Date</th>
-                <th scope="col">Levels</th>
-                <th scope="col">Comment</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody id="myTable">
-            <% if(lvls.length > 0) { %>
-                <% for(let sub of lvls) { %>
-                <tr>   
-                    <td><%= sub.symbol %></td>
-                    <td><%= helper.formatDate(sub.date) %></td>
-                    <td><%= sub.levels %></td>
-                    <td><%= (sub.comment === '')? '-': sub.comment %></td>
-                    <td>
-                        <a href="/updateLevel/<%= sub._id %>" class="btn"><i class="fa fa-edit"></i></a>
-                        <form action="/deleteLevel/<%= sub._id %>" style="display: inline;" method="POST"><button type="submit" class="btn"><i class="fa fa-trash"></i></button></form>
-                    </td>
-                </tr
-                <% } %>
-            <% } else { %>
-                <tr>
-                    <td>No data found</td>
-                </tr>
-            <% } %>
-        </tbody>
-        </table>
+  
     </div>
-
-
 </div>
+<div class="table-responsive">
+  <table class="table table-hover">
+      <thead class="table-dark">
+          <tr>
+              <th scope="col">Symbol</th>
+              <th scope="col">Date</th>
+              <th scope="col">Levels</th>
+              <th scope="col">Comment</th>
+              <th scope="col">Actions</th>
+          </tr>
+      </thead>
+      <tbody id="myTable">
+          <% if(lvls.length > 0) { %>
+              <% for(let sub of lvls) { %>
+              <tr>   
+                  <td><%= sub.symbol %></td>
+                  <td><%= helper.formatDate(sub.date) %></td>
+                  <td><%= sub.levels %></td>
+                  <td><%= (sub.comment === '')? '-': sub.comment %></td>
+                  <td>
+                      <a href="/updateLevel/<%= sub._id %>" class="btn"><i class="fa fa-edit"></i></a>
+                      <form action="/deleteLevel/<%= sub._id %>" style="display: inline;" method="POST"><button type="submit" class="btn"><i class="fa fa-trash"></i></button></form>
+                  </td>
+              </tr
+              <% } %>
+          <% } else { %>
+              <tr>
+                  <td>No data found</td>
+              </tr>
+          <% } %>
+      </tbody>
+      </table>
