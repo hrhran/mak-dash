@@ -32,6 +32,15 @@
                 
               </div>
             </div>
+
+              <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="major">Major Levels</label>  
+              <div class="col-md-4">
+              <textarea id="major" name="major" type="text" placeholder="Enter Major Levels (comma separated)" class="form-control input-md" rows="3" required=""></textarea>
+                
+              </div>
+            </div>
             
             <!-- Text input-->
             <div class="form-group">
@@ -62,6 +71,7 @@
               <th scope="col">Symbol</th>
               <th scope="col">Date</th>
               <th scope="col">Levels</th>
+              <th scope="col">MajorLevels</th>
               <th scope="col">Comment</th>
               <th scope="col">Actions</th>
           </tr>
@@ -72,7 +82,8 @@
               <tr>   
                   <td><%= sub.symbol %></td>
                   <td><%= helper.formatDate(sub.date) %></td>
-                  <td><%= sub.levels %></td>
+                  <td><%= sub.levels.replaceAll(',',', ') %></td>
+                  <td><%= sub.major.replaceAll(',',', ') %></td>
                   <td><%= (sub.comment === '')? '-': sub.comment %></td>
                   <td>
                       <a href="/updateLevel/<%= sub._id %>" class="btn"><i class="fa fa-edit"></i></a>

@@ -24,6 +24,7 @@ const getLevel = (req, res, next) => {
         date: data.date,
         symbol: data.symbol.toUpperCase(),
         levels: data.levels.replaceAll(' ',''),
+        major: data.major.replaceAll(' ',''),
         comment: data.comment,
     });
     lvl = await lvl.save();
@@ -51,6 +52,7 @@ const getLevel = (req, res, next) => {
         date: data.date,
         symbol: data.symbol,
         levels: data.levels.replaceAll(' ',''),
+        major: data.major.replaceAll(' ',''),
         comment: data.comment,
       },
       { new: true }

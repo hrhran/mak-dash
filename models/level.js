@@ -6,6 +6,7 @@ const myObject = mongoose.Schema(
     date: Date,
     symbol: String,
     levels: String,
+    major: String,
     comment: String,
   },
   { versionKey: false }
