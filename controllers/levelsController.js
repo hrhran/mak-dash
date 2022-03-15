@@ -19,7 +19,7 @@ const getLevel = (req, res, next) => {
 
   const addLevel = async (req, res, next) => {
     const data = req.body;
-    const addOrUpdateLevel= await User.findOneAndUpdate({symbol:data.symbol},{
+    const addOrUpdateLevel= await level.findOneAndUpdate({symbol:data.symbol},{
       timestamp: Math.floor(Date.now() / 1000),
       date: data.date,
       symbol: data.symbol.toUpperCase(),
