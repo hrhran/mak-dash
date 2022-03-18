@@ -26,6 +26,7 @@ const getLevel = (req, res, next) => {
       levels: data.levels.replaceAll(' ',''),
       major: data.major.replaceAll(' ',''),
       comment: data.comment,
+      trade_ideas: data.trade_ideas,
     }, { upsert: true })
     // let lvl = await new level({
     //     timestamp: Math.floor(Date.now() / 1000),
@@ -62,6 +63,7 @@ const getLevel = (req, res, next) => {
         levels: data.levels.replaceAll(' ',''),
         major: data.major.replaceAll(' ',''),
         comment: data.comment,
+        trade_ideas: data.trade_ideas,
       },
       { new: true }
     );

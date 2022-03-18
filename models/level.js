@@ -8,6 +8,7 @@ const myObject = mongoose.Schema(
     levels: String,
     major: String,
     comment: String,
+    trade_ideas: String,
   },
   { versionKey: false }
 );
