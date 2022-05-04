@@ -1,4 +1,5 @@
 const { subscriber } = require("../models/customer");
+const  User  = require("../models/user")
 const path = require("path");
 const fs = require("fs");
 const helper = require("../helper");
@@ -28,16 +29,17 @@ const postLogout = (req, res, next) => {
 };
 
 const getAllCustomers = async (req, res, next) => {
-  subscriber
-    .find()
-    .sort({ timestamp: -1 })
-    .exec((err, users) => {
-      if (err) return console.log(err);
-      res.render("customerlist", {
-        customers: users,
-        helper: helper,
-      });
+  try{
+    const users = await User.find().sort({createdAt: -1})
+    const customers = await subscriber.find().sort({ timestamp: -1 })
+    res.render("customerlist", {
+      users: users,
+      customers: customers,
+      helper: helper,
     });
+  }catch(err){
+    console.log(err)
+  }
 };
 
 const getAddCustomerView = (req, res, next) => {
@@ -119,6 +121,70 @@ const deleteCustomer = async (req, res, next) => {
   }
 };
 
+//----------------------User Database------------------------------------------
+
+
+
+const getUpdateUserView = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const onecustomer = await User.findById(id).exec();
+    res.render("updateUser", {
+      customer: onecustomer,
+    });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+const updateUser = async (req, res, next) => {
+  const id = req.params.id;
+  const data = req.body;
+  let user = await User.findByIdAndUpdate(
+    id,
+    {
+      name: data.name,
+      email: data.email,
+      twitter: data.twitter,
+      discord_id: data.discord_id,
+      referral_code: data.referral_code,
+      billingID: data.billingID,
+      subscribed: data.subscribed,
+      inTrial: data.inTrial,
+    },
+    { new: true }
+  );
+  if (!user)
+    return res.status(404).send("Subscriber with the given id not found");
+
+  res.redirect("/dashboard");
+};
+
+const getDeleteUserView = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const onecustomer = await User.findById(id).exec();
+    console.log(onecustomer)
+    res.render("deleteUser", {
+      customer: onecustomer,
+    });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+const deleteUser = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const user = await User.findByIdAndRemove(id);
+    if (!user)
+      return res.status(404).send("Subsciber with the given id not found");
+    res.redirect("/dashboard");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
 module.exports = {
   loginView,
   postLogin,
@@ -130,4 +196,8 @@ module.exports = {
   updateCustomer,
   getDeleteCustomerView,
   deleteCustomer,
+  getUpdateUserView,
+  updateUser,
+  getDeleteUserView,
+  deleteUser,
 };

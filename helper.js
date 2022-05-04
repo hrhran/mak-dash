@@ -6,6 +6,14 @@ const convertTime = (time) => {
     .replace("GMT", ""));
 };
 
+const convertISO = (time) => {
+  var theDate = new Date(time);
+  return (dateString = theDate
+    .toGMTString()
+    .replace(/^(.+?),/, "")
+    .replace("GMT", ""));
+};
+
 
 
 const formatDate = (data) =>{
@@ -18,6 +26,7 @@ const formatDate = (data) =>{
 
 module.exports = {
   convertTime,
+  convertISO,
   formatDate,
 };
 

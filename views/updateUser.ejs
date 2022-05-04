@@ -1,0 +1,70 @@
+<div class="card">
+    <div class="card-header">
+        <h4 class="font-weight-bold">Update Subscriber</h4>
+    </div>
+    <div class="card-body">
+        <form action="/updateUser/<%= customer._id %>" method="post">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="name">Name</label>
+                        <input type="text" class="form-control" value="<%= customer.name%>" name="name" placeholder="" id="name">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="email">Email</label>
+                        <input type="text" class="form-control" value="<%= customer.email%>" name="email" placeholder="" id="email">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="twitter">Twitter Account</label>
+                        <input type="text" class="form-control" value="<%= customer.twitter%>" name="twitter" placeholder="" id="twitter">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="discord_id">Discord ID</label>
+                        <input type="text" class="form-control" value="<%= customer.discord_id%>" name="discord_id" placeholder="" id="discord_id">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="referral_code">ReferralCode</label>
+                        <input type="text" class="form-control" value="<%= customer.referral_code%>"name="referral_code" placeholder="" id="referral_code">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="billingID">BillingID</label>
+                        <input type="text" class="form-control" value="<%= customer.billingID%>" name="billingID" placeholder="" id="billingID">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="subscribed">Subscribed</label>
+                        <select class="form-control" name="subscribed" id="subscribed">
+                            <option value="false"  <%= (customer.subscribed)?'':'selected' %>>No</option>
+                            <option value="true" <%= (customer.subscribed)?'selected':'' %>>Yes</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="inTrial">In Trial</label>
+                        <select class="form-control" name="inTrial" id="inTrial">
+                            <option value="false"  <%= (customer.inTrial)?'':'selected' %>>No</option>
+                            <option value="true" <%= (customer.inTrial)?'selected':'' %>>Yes</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="">
+                <button type="submit" class="btn btn-success">Update</button>
+                <a href="/dashboard" class="btn btn-light">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

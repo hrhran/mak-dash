@@ -1,4 +1,43 @@
+<style>
+    .button-wrap{
+        display:flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap:10px;
+    }
+    a.button {
+  margin-top:5px;
+  text-decoration: none;
+  width:100px;
+  height:35px;
+  background-color:rgb(103, 2, 255);
+  color:#fff;
+  text-align:center;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 8px;
+}
 
+a.active {
+  background-color:rgb(66, 0, 164);;
+}
+
+.content {
+  margin-top:30px;
+}
+
+div[class*="content-"] { 
+  display:none;
+}
+
+div.active { 
+  display:block;
+}
+</style>
+    
     <div class="card-header">
         <div class="row">
             <div class="col-4">
@@ -12,50 +51,112 @@
             </div>
         </div>
     </div>
-    <div class="table-responsive">
- 
-      
+    <center>
+        <div Class="button-wrap">
+        <a href="#" class="button">
+          Makpass
+        </a>
+        <a href="#" class="button">
+          Launchpass
+        </a>
+    </center>
     
-        <table class="table table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">Timestamp</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Discord ID</th>
-                    <th scope="col">Discord Name</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Twitter</th>
-                    <th scope="col">Customer ID</th>
-                    <th scope="col">Channel</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody id="myTable">
-                <% if(customers.length > 0) { %>
-                    <% for(let sub of customers) { %>
+    <div class="table-responsive">
+    <div class="content">
+        <div class="content-1 active">
+            <table class="table table-hover">
+                <thead class="table-dark">
                     <tr>
-                    
-                        <td><%= helper.convertTime(sub.timestamp) %></td>
-                        <td><%= sub.email %></td>
-                        <td><%= (sub.discord_id === '')? '-': sub.discord_id %></td>
-                        <td><%= (sub.discord_name === '')? '-': sub.discord_name %></td>
-                        <td><%= sub.status %></td>
-                        <td><%= (sub.twitter === '')? '-': sub.twitter %></td>
-                        <td><%= (sub.cust_id === '')? '-': sub.cust_id %></td>
-                        <td><%= sub.channel %></td>
-                        <td>
-                            <a href="/updateCustomer/<%= sub._id %>" class="btn"><i class="fa fa-edit"></i></a>
-                            <a href="/deleteCustomer/<%= sub._id %>" class="btn"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr
-                    <% } %>
-                <% } else { %>
-                    <tr>
-                        <td>No data found</td>
+                        <th scope="col">Timestamp</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Twitter</th>
+                        <th scope="col">Discord ID</th>
+                        <th scope="col">ReferralCode</th>
+                        <th scope="col">Subscribed</th>
+                        <th scope="col">InTrial</th>
+                        <th scope="col">End/BillingDate</th>
+                        <th scope="col">BillingID</th>
+                        <th scope="col">Actions</th>
                     </tr>
-                <% } %>
-            </tbody>
-            </table>
+                </thead>
+                <tbody id="myTable">
+    
+                    <% if(users.length > 0) { %>
+                        <% for(let sub of users) { %>
+                        <tr>
+                        
+                            <td><%= helper.convertISO(sub.createdAt) %></td>
+                            <td><%= sub.name %></td>
+                            <td><%= sub.email %></td>
+                            <td><%= (sub.twitter === '')? '-': sub.twitter %></td>
+                            <td><%= (sub.discord_id === '')? '-': sub.discord_id %></td>
+                            <td><%= sub.referral_code %></td>
+                            <td><%= (sub.subscribed)? 'Yes': 'No' %></td>
+                            <td><%= (sub.inTrial)? 'Yes': 'No' %></td>
+                            <td><%= (sub.endDate)? helper.convertISO(sub.endDate): '-' %></td>
+                            <td><%= sub.billingID %></td>
+                            <td>
+                                <a href="/updateUser/<%= sub._id %>" class="btn"><i class="fa fa-edit"></i></a>
+                                <a href="/deleteUser/<%= sub._id %>" class="btn"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr
+                        <% } %>
+                    <% } else { %>
+                        <tr>
+                            <td>No data found</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+                </table>
+
+        </div>
+
+        <div class="content-2">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Timestamp</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Discord ID</th>
+                        <th scope="col">Discord Name</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Twitter</th>
+                        <th scope="col">Customer ID</th>
+                        <th scope="col">Channel</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+    
+                    <% if(customers.length > 0) { %>
+                        <% for(let sub of customers) { %>
+                        <tr>
+                        
+                            <td><%= helper.convertTime(sub.timestamp) %></td>
+                            <td><%= sub.email %></td>
+                            <td><%= (sub.discord_id === '')? '-': sub.discord_id %></td>
+                            <td><%= (sub.discord_name === '')? '-': sub.discord_name %></td>
+                            <td><%= sub.status %></td>
+                            <td><%= (sub.twitter === '')? '-': sub.twitter %></td>
+                            <td><%= (sub.cust_id === '')? '-': sub.cust_id %></td>
+                            <td><%= sub.channel %></td>
+                            <td>
+                                <a href="/updateCustomer/<%= sub._id %>" class="btn"><i class="fa fa-edit"></i></a>
+                                <a href="/deleteCustomer/<%= sub._id %>" class="btn"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr
+                        <% } %>
+                    <% } else { %>
+                        <tr>
+                            <td>No data found</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+                </table>
+        </div>
+    </div>
+        
         </div>
         
         
@@ -69,6 +170,20 @@
                 });
               });
             });
+            
+            $('.button').first().addClass('active');
+
+            $('.button').click(function(){
+            var $this = $(this);
+            $siblings = $this.parent().children(),
+            position = $siblings.index($this);
+            console.log (position);
+            
+            $('.content div').removeClass('active').eq(position).addClass('active');
+            
+            $siblings.removeClass('active');
+            $this.addClass('active');
+            })
             </script>
     
 
